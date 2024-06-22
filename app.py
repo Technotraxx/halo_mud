@@ -126,14 +126,13 @@ def sidebar_content():
         st.markdown(f'<div class="inventory-item"><span class="inventory-icon">{icon}</span>{name}</div>', unsafe_allow_html=True)
 
 def main():
-    st.markdown('<h1 class="main-title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
+    st.markdown('<div class="main-content"><h1 class="main-title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
 
     # Sidebar
     with st.sidebar:
         sidebar_content()
 
     # Main content
-    st.markdown('<div class="main-content">', unsafe_allow_html=True)
     col1, col2 = st.columns([1, 3])
 
     with col1:
