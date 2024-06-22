@@ -3,13 +3,9 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 
-# Set page config and theme
 st.set_page_config(layout="wide", page_title="Reach Surface - Entering ONI Facility")
-st.set_option('theme.backgroundColor', '#1E1E1E')
-st.set_option('theme.secondaryBackgroundColor', '#2C3E50')
-st.set_option('theme.textColor', '#FFFFFF')
 
-# Custom CSS (simplified)
+# Custom CSS
 st.markdown("""
 <style>
     .main-title {
@@ -40,6 +36,9 @@ st.markdown("""
     .inventory-icon {
         font-size: 20px;
         margin-right: 10px;
+    }
+    .stProgress > div > div > div > div {
+        background-color: #4CAF50;
     }
 </style>
 """, unsafe_allow_html=True)
