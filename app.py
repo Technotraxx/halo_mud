@@ -73,10 +73,10 @@ def main():
     with col1:
         st.markdown('<h2 class="subtitle">Battlefield Status</h2>', unsafe_allow_html=True)
         st.markdown("""
-        - 🔓 Facility Access: Hatch Open, Team Entering
-        - 💨 Smoke Screen: Deployed, Obscuring Entry
-        - ✈️ Air Threat: Banshees Engaged, Visibility Reduced
-        - 🛡️ Team Status: Transitioning to Interior, Exposed Momentarily
+        🔓 Facility Access: Hatch Open, Team Entering
+        💨 Smoke Screen: Deployed, Obscuring Entry
+        ✈️ Air Threat: Banshees Engaged, Visibility Reduced
+        🛡️ Team Status: Transitioning to Interior, Exposed Momentarily
         """)
 
     with col2:
