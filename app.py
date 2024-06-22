@@ -128,10 +128,6 @@ def sidebar_content():
 def main():
     st.markdown('<div class="main-content"><h1 class="main-title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
 
-    # Sidebar
-    with st.sidebar:
-        sidebar_content()
-
     # Main content
     col1, col2 = st.columns([1, 3])
 
@@ -142,6 +138,10 @@ def main():
         st.plotly_chart(create_battlefield_view(), use_container_width=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
+
+# Sidebar
+    with st.sidebar:
+        sidebar_content()
 
 if __name__ == "__main__":
     main()
