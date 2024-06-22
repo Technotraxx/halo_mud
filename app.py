@@ -9,7 +9,7 @@ st.set_page_config(layout="wide", page_title="Reach Surface - Entering ONI Facil
 st.markdown("""
 <style>
     .main-content {
-        background-color: #1E1E1E;
+        background-color: #666666;
         color: #FFFFFF;
         padding: 20px;
         border-radius: 5px;
