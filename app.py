@@ -60,7 +60,7 @@ def main():
     st.markdown("""
     <style>
     .main-content { background-color: #1E1E1E; color: #FFFFFF; padding: 20px; border-radius: 5px; }
-    .title { color: #4CAF50; text-align: center; }
+    .title { color: #4CAF50; text-align: left; }
     .subtitle { color: #3498db; }
     </style>
     """, unsafe_allow_html=True)
