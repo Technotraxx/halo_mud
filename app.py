@@ -55,7 +55,7 @@ st.markdown("""
     }
     /* New styles for sidebar */
     .css-1d391kg {  /* Sidebar background */
-        background-color: #2C3E50;
+        background-color: #1E1E1E;
     }
     .css-1d391kg .stMarkdown {  /* Text in sidebar */
         color: #FFFFFF;
