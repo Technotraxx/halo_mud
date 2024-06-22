@@ -5,7 +5,7 @@ import numpy as np
 
 st.set_page_config(layout="wide", page_title="Reach Surface - Entering ONI Facility")
 
-# Custom CSS for improved styling
+# Updated Custom CSS
 st.markdown("""
 <style>
     .stApp {
@@ -52,6 +52,16 @@ st.markdown("""
     .inventory-icon {
         font-size: 20px;
         margin-right: 10px;
+    }
+    /* New styles for sidebar */
+    .css-1d391kg {  /* Sidebar background */
+        background-color: #2C3E50;
+    }
+    .css-1d391kg .stMarkdown {  /* Text in sidebar */
+        color: #FFFFFF;
+    }
+    .stProgress > div > div > div > div {
+        background-color: #4CAF50;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -106,15 +116,18 @@ def battlefield_status():
     for icon, text in status:
         st.markdown(f'<div class="status-item"><span class="status-icon">{icon}</span>{text}</div>', unsafe_allow_html=True)
 
-def spartan_status():
+# Update the sidebar content to use custom classes
+def sidebar_content():
+    st.markdown('<p class="section-title">Current Mission</p>', unsafe_allow_html=True)
+    st.markdown('<div class="info-box">Enter ONI facility. Secure interior position. Assess internal situation and potential threats.</div>', unsafe_allow_html=True)
+    
     st.markdown('<p class="section-title">Spartan Status</p>', unsafe_allow_html=True)
     st.markdown('<p class="progress-label">❤️ Health: 95</p>', unsafe_allow_html=True)
     st.progress(95)
     st.markdown('<p class="progress-label">🛡️ Shield: 75 (Recharging)</p>', unsafe_allow_html=True)
     st.progress(75)
     st.markdown('<p class="progress-label">🎯 Ammo: 45 / 12</p>', unsafe_allow_html=True)
-
-def inventory():
+    
     st.markdown('<p class="section-title">Inventory</p>', unsafe_allow_html=True)
     inventory_items = [
         ("🔪", "Combat Knife"),
@@ -129,18 +142,13 @@ def inventory():
     for icon, name in inventory_items:
         st.markdown(f'<div class="inventory-item"><span class="inventory-icon">{icon}</span>{name}</div>', unsafe_allow_html=True)
 
-def current_mission():
-    st.markdown('<p class="section-title">Current Mission</p>', unsafe_allow_html=True)
-    st.markdown('<div class="info-box">Enter ONI facility. Secure interior position. Assess internal situation and potential threats.</div>', unsafe_allow_html=True)
-
+# In your main function
 def main():
     st.markdown('<h1 class="main-title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
 
     # Sidebar
     with st.sidebar:
-        current_mission()
-        spartan_status()
-        inventory()
+        sidebar_content()
 
     # Main content
     col1, col2 = st.columns([1, 3])
