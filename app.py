@@ -65,23 +65,18 @@ def main():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown('<h1 class="title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
-
     # Main content
-    col1, col2 = st.columns([1, 3])
-
-    with col1:
-        st.markdown('<h2 class="subtitle">Battlefield Status</h2>', unsafe_allow_html=True)
-        st.markdown("""
-        🔓 Facility Access: Hatch Open, Team Entering
-        💨 Smoke Screen: Deployed, Obscuring Entry
-        ✈️ Air Threat: Banshees Engaged, Visibility Reduced
-        🛡️ Team Status: Transitioning to Interior, Exposed Momentarily
+    st.markdown('<h1 class="title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
+    st.markdown('<h2 class="subtitle">Battlefield Status</h2>', unsafe_allow_html=True)
+    st.markdown("""
+        🔓 Facility Access: Hatch Open, Team Entering\n
+        💨 Smoke Screen: Deployed, Obscuring Entry\n
+        ✈️ Air Threat: Banshees Engaged, Visibility Reduced\n
+        🛡️ Team Status: Transitioning to Interior, Exposed Momentarily\n
         """)
 
-    with col2:
-        st.markdown('<h2 class="subtitle">Battlefield View</h2>', unsafe_allow_html=True)
-        st.markdown(render_svg(battlefield_svg), unsafe_allow_html=True)
+    st.markdown('<h2 class="subtitle">Battlefield View</h2>', unsafe_allow_html=True)
+    st.markdown(render_svg(battlefield_svg), unsafe_allow_html=True)
 
     # Sidebar content
     with st.sidebar:
