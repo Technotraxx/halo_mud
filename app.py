@@ -1,145 +1,100 @@
 import streamlit as st
+from dash import Dash, html, dcc
+import dash_bootstrap_components as dbc
+from dash.dependencies import Input, Output
 import plotly.graph_objects as go
-import pandas as pd
-import numpy as np
 
-st.set_page_config(layout="wide", page_title="Reach Surface - Entering ONI Facility")
+# Initialize the Dash app
+app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 
-# Custom CSS
-st.markdown("""
-<style>
-    .main-content {
-        background-color: #666666;
-        color: #FFFFFF;
-        padding: 20px;
-        border-radius: 5px;
-    }
-    .main-title {
-        font-size: 2.5em;
-        font-weight: bold;
-        color: #4CAF50 !important;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    .section-title {
-        font-size: 1.5em;
-        font-weight: bold;
-        color: #3498db !important;
-        margin-top: 15px;
-        margin-bottom: 10px;
-    }
-    .info-box {
-        background-color: #34495e;
-        color: #FFFFFF;
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 10px;
-    }
-    .inventory-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-    .inventory-icon {
-        font-size: 20px;
-        margin-right: 10px;
-    }
-    .stProgress > div > div > div > div {
-        background-color: #4CAF50;
-    }
-</style>
-""", unsafe_allow_html=True)
+# Define the Battlefield View SVG
+battlefield_svg = '''
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="auto">
+    <defs>
+        <radialGradient id="smokeGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#888888" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#888888" stop-opacity="0"/>
+        </radialGradient>
+    </defs>
+    <rect x="0" y="0" width="400" height="300" fill="#4A3C31"/>
+    <rect x="250" y="50" width="150" height="100" fill="#1E90FF" stroke="#000000" stroke-width="2"/>
+    <text x="325" y="100" fill="white" font-size="10" text-anchor="middle">ONI Outpost</text>
+    <rect x="390" y="120" width="10" height="20" fill="#000000" stroke="#00FF00" stroke-width="1"/>
+    <text x="385" y="135" fill="white" font-size="8" text-anchor="end">Hatch</text>
+    <circle cx="395" cy="130" r="5" fill="#0000FF" opacity="0.7"/>
+    <circle cx="395" cy="130" r="5" fill="#FFFF00" opacity="0.7">
+        <animate attributeName="cx" from="395" to="400" dur="0.5s" fill="freeze" />
+        <animate attributeName="cy" from="130" to="130" dur="0.5s" fill="freeze" />
+    </circle>
+    <circle cx="395" cy="130" r="5" fill="#00FF00" opacity="0.7">
+        <animate attributeName="cx" from="395" to="400" dur="0.7s" fill="freeze" />
+        <animate attributeName="cy" from="130" to="130" dur="0.7s" fill="freeze" />
+    </circle>
+    <circle cx="390" cy="130" r="5" fill="#FF0000" opacity="0.7"/>
+    <circle cx="380" cy="130" r="40" fill="url(#smokeGradient)">
+        <animate attributeName="r" from="0" to="40" dur="1s" fill="freeze" />
+    </circle>
+    <path d="M50 50 Q 150 30, 250 50" fill="none" stroke="#FF00FF" stroke-width="2">
+        <animate attributeName="d" values="M50 50 Q 150 30, 250 50; M100 100 Q 200 80, 300 100; M150 150 Q 250 130, 350 150" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M30 30 Q 130 10, 230 30" fill="none" stroke="#FF00FF" stroke-width="2">
+        <animate attributeName="d" values="M30 30 Q 130 10, 230 30; M80 80 Q 180 60, 280 80; M130 130 Q 230 110, 330 130" dur="2s" repeatCount="indefinite" />
+    </path>
+    <text x="150" y="40" fill="#FF00FF" font-size="10">Banshees</text>
+    <circle cx="300" cy="110" r="2" fill="#FF00FF">
+        <animate attributeName="cx" values="300;310;320" dur="0.2s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="110;120;130" dur="0.2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="320" cy="130" r="2" fill="#FF00FF">
+        <animate attributeName="cx" values="320;330;340" dur="0.2s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="130;140;150" dur="0.2s" repeatCount="indefinite" />
+    </circle>
+</svg>
+'''
 
-def create_battlefield_view():
-    fig = go.Figure()
+# Define the Dash layout
+app.layout = html.Div([
+    html.H1("Reach Surface - Entering ONI Facility", style={'textAlign': 'center', 'color': '#4CAF50'}),
+    html.Div([
+        html.Div([
+            html.H2("Battlefield Status", style={'color': '#3498db'}),
+            html.Ul([
+                html.Li("🔓 Facility Access: Hatch Open, Team Entering"),
+                html.Li("💨 Smoke Screen: Deployed, Obscuring Entry"),
+                html.Li("✈️ Air Threat: Banshees Engaged, Visibility Reduced"),
+                html.Li("🛡️ Team Status: Transitioning to Interior, Exposed Momentarily")
+            ])
+        ], style={'width': '30%', 'float': 'left'}),
+        html.Div([
+            html.H2("Battlefield View", style={'color': '#3498db'}),
+            html.Div([html.Div(dangerously_set_inner_html=battlefield_svg)],
+                     style={'width': '100%', 'height': 'auto'})
+        ], style={'width': '70%', 'float': 'right'})
+    ], style={'display': 'flex'})
+], style={'backgroundColor': '#1E1E1E', 'color': '#FFFFFF', 'padding': '20px'})
 
-    # Background
-    fig.add_shape(type="rect", x0=0, y0=0, x1=100, y1=100, fillcolor="#4A3C31", line_color="#4A3C31")
-
-    # ONI outpost
-    fig.add_shape(type="rect", x0=60, y0=60, x1=100, y1=100, fillcolor="#1E90FF", line_color="black")
-    fig.add_annotation(x=80, y=80, text="ONI Outpost", showarrow=False, font=dict(color="white", size=12))
-
-    # Open hatch
-    fig.add_shape(type="rect", x0=95, y0=95, x1=100, y1=100, fillcolor="black", line_color="#00FF00")
-    fig.add_annotation(x=94, y=97, text="Hatch", showarrow=False, font=dict(color="white", size=10), xanchor="right")
-
-    # Team entering facility
-    fig.add_trace(go.Scatter(x=[97, 97, 97, 96], y=[93, 93, 93, 93], mode="markers",
-                             marker=dict(size=10, color=["blue", "yellow", "green", "red"], opacity=0.7)))
-
-    # Banshees
-    t = np.linspace(0, 1, 100)
-    x = 10 + 50 * t
-    y = 20 + 30 * np.sin(2 * np.pi * t)
-    fig.add_trace(go.Scatter(x=x, y=y, mode="lines", line=dict(color="#FF00FF", width=2)))
-    fig.add_annotation(x=35, y=10, text="Banshees", showarrow=False, font=dict(color="#FF00FF", size=12))
-
-    # Smoke effect
-    fig.add_trace(go.Scatter(x=[95], y=[93], mode="markers", marker=dict(size=20, color="rgba(169,169,169,0.7)")))
-
-    fig.update_layout(
-        showlegend=False,
-        margin=dict(l=0, r=0, t=0, b=0),
-        xaxis=dict(showgrid=False, zeroline=False, visible=False),
-        yaxis=dict(showgrid=False, zeroline=False, visible=False),
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)'
-    )
-
-    return fig
-
-def battlefield_status():
-    st.markdown('<p class="section-title">Battlefield Status</p>', unsafe_allow_html=True)
-    status = [
-        ("🔓", "Facility Access: Hatch Open, Team Entering"),
-        ("💨", "Smoke Screen: Deployed, Obscuring Entry"),
-        ("✈️", "Air Threat: Banshees Engaged, Visibility Reduced"),
-        ("🛡️", "Team Status: Transitioning to Interior, Exposed Momentarily"),
-    ]
-    for icon, text in status:
-        st.markdown(f'<div style="display: flex; align-items: center; margin-bottom: 5px;"><span style="font-size: 24px; margin-right: 10px;">{icon}</span>{text}</div>', unsafe_allow_html=True)
-
-def sidebar_content():
-    st.markdown('<p class="section-title">Current Mission</p>', unsafe_allow_html=True)
-    st.markdown('<div class="info-box">Enter ONI facility. Secure interior position. Assess internal situation and potential threats.</div>', unsafe_allow_html=True)
-    
-    st.markdown('<p class="section-title">Spartan Status</p>', unsafe_allow_html=True)
-    st.markdown('❤️ Health: 95', unsafe_allow_html=True)
-    st.progress(95)
-    st.markdown('🛡️ Shield: 75 (Recharging)', unsafe_allow_html=True)
-    st.progress(75)
-    st.markdown('🎯 Ammo: 45 / 12', unsafe_allow_html=True)
-    
-    st.markdown('<p class="section-title">Inventory</p>', unsafe_allow_html=True)
-    inventory_items = [
-        ("🔪", "Combat Knife"),
-        ("💣", "Frag Grenade (x1)"),
-        ("🩹", "Medkit"),
-        ("🔫", "MA5B Assault Rifle"),
-        ("🔫", "M6D Pistol"),
-        ("📡", "ODST Drop Pod Beacon"),
-        ("💾", "Recovered Datapad"),
-        ("🔮", "Forerunner Artifact")
-    ]
-    for icon, name in inventory_items:
-        st.markdown(f'<div class="inventory-item"><span class="inventory-icon">{icon}</span>{name}</div>', unsafe_allow_html=True)
-
+# Streamlit app
 def main():
-    st.markdown('<h1 class="main-title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
-
-    # Main content
-    col1, col2 = st.columns([1, 3])
-
-    with col1:
-        battlefield_status()
-
-    with col2:
-        st.plotly_chart(create_battlefield_view(), use_container_width=True)
-        
-# Sidebar
+    st.set_page_config(layout="wide", page_title="Reach Surface - Entering ONI Facility")
+    
+    # Sidebar content
     with st.sidebar:
-        sidebar_content()
+        st.header("Current Mission")
+        st.info("Enter ONI facility. Secure interior position. Assess internal situation and potential threats.")
+        
+        st.header("Spartan Status")
+        st.progress(95, text="Health: 95")
+        st.progress(75, text="Shield: 75 (Recharging)")
+        st.write("🎯 Ammo: 45 / 12")
+        
+        st.header("Inventory")
+        inventory = ["🔪 Combat Knife", "💣 Frag Grenade (x1)", "🩹 Medkit", "🔫 MA5B Assault Rifle",
+                     "🔫 M6D Pistol", "📡 ODST Drop Pod Beacon", "💾 Recovered Datapad", "🔮 Forerunner Artifact"]
+        for item in inventory:
+            st.write(item)
+
+    # Main content (Dash app)
+    st.components.v1.html(app.index(), height=600)
 
 if __name__ == "__main__":
     main()
