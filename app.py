@@ -58,7 +58,7 @@ st.markdown("""
         background-color: #1E1E1E;
     }
     .css-1d391kg .stMarkdown {  /* Text in sidebar */
-        color: #FFFFFF;
+        color: #000000;
     }
     .stProgress > div > div > div > div {
         background-color: #4CAF50;
