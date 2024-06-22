@@ -3,6 +3,7 @@ from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
+import base64
 
 # Initialize the Dash app
 app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
@@ -52,6 +53,9 @@ battlefield_svg = '''
 </svg>
 '''
 
+# Encode the SVG content
+encoded_svg = base64.b64encode(battlefield_svg.encode('utf-8')).decode('utf-8')
+
 # Define the Dash layout
 app.layout = html.Div([
     html.H1("Reach Surface - Entering ONI Facility", style={'textAlign': 'center', 'color': '#4CAF50'}),
@@ -67,8 +71,8 @@ app.layout = html.Div([
         ], style={'width': '30%', 'float': 'left'}),
         html.Div([
             html.H2("Battlefield View", style={'color': '#3498db'}),
-            html.Div([html.Div(dangerously_set_inner_html=battlefield_svg)],
-                     style={'width': '100%', 'height': 'auto'})
+            html.Iframe(srcDoc=f'data:image/svg+xml;base64,{encoded_svg}',
+                        style={'width': '100%', 'height': '400px', 'border': 'none'})
         ], style={'width': '70%', 'float': 'right'})
     ], style={'display': 'flex'})
 ], style={'backgroundColor': '#1E1E1E', 'color': '#FFFFFF', 'padding': '20px'})
