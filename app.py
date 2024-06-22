@@ -67,17 +67,22 @@ def main():
 
     # Main content
     st.markdown('<h1 class="title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
-    st.markdown('<h2 class="subtitle">Battlefield Status</h2>', unsafe_allow_html=True)
-    st.markdown("""
+    
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        st.markdown('<h2 class="subtitle">Battlefield Status</h2>', unsafe_allow_html=True)
+        st.markdown("""
         🔓 Facility Access: Hatch Open, Team Entering\n
         💨 Smoke Screen: Deployed, Obscuring Entry\n
         ✈️ Air Threat: Banshees Engaged, Visibility Reduced\n
         🛡️ Team Status: Transitioning to Interior, Exposed Momentarily\n
         """)
+        st.markdown('<h2 class="subtitle">Battlefield View</h2>', unsafe_allow_html=True)
+        st.markdown(render_svg(battlefield_svg), unsafe_allow_html=True)
 
-    st.markdown('<h2 class="subtitle">Battlefield View</h2>', unsafe_allow_html=True)
-    st.markdown(render_svg(battlefield_svg), unsafe_allow_html=True)
-
+    with col2:
+        st.write('Hello, *World!* :sunglasses:')
+    
     # Sidebar content
     with st.sidebar:
         st.header("Current Mission")
