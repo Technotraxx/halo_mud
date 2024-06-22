@@ -96,7 +96,7 @@ Linda backs in, her sniper rifle trained outward until the last second. "Smoke's
 
 You enter last, just as plasma bolts impact around the hatch, superheating the metal. The door begins to close automatically behind you, sealing out the chaos outside.
 
-As your eyes adjust to the dimmer interior, you take in your surroundings:
+*As your eyes adjust to the dimmer interior, you take in your surroundings:*
 
 1. You're in a narrow corridor with emergency lighting active. Signs of a recent struggle are evident – scorch marks on walls, spent casings on the floor.
 
@@ -108,7 +108,7 @@ As your eyes adjust to the dimmer interior, you take in your surroundings:
 
 5. The artifact in Fred's hands is pulsing more rapidly now, its glow intensifying as if reacting to something nearby.
 
-You have a brief moment to decide your next move:
+*You have a brief moment to decide your next move:*
 
 1. Secure and fortify your immediate position in case of external breach
 2. Move deeper into the facility towards the research area
