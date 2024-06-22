@@ -126,7 +126,7 @@ def sidebar_content():
         st.markdown(f'<div class="inventory-item"><span class="inventory-icon">{icon}</span>{name}</div>', unsafe_allow_html=True)
 
 def main():
-    st.markdown('<div class="main-content"><h1 class="main-title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
 
     # Main content
     col1, col2 = st.columns([1, 3])
@@ -136,9 +136,7 @@ def main():
 
     with col2:
         st.plotly_chart(create_battlefield_view(), use_container_width=True)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-
+        
 # Sidebar
     with st.sidebar:
         sidebar_content()
