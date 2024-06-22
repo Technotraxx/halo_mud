@@ -81,7 +81,8 @@ def main():
         st.markdown(render_svg(battlefield_svg), unsafe_allow_html=True)
 
     with col2:
-        st.write("""The smoke grenade detonates, quickly filling the area with a thick, obscuring cloud. Your team responds instantly to your order:\n
+        st.markdown("""The smoke grenade detonates, quickly filling the area with a thick, obscuring cloud. 
+        Your team responds instantly to your order:\n
         Kelly darts in first, her enhanced speed making her a blur even in the confines of the entrance. "I'm in, area looks clear!"\n
         Fred follows, the artifact pulsing more intensely as he crosses the threshold. "Chief, the artifact's reaction is getting stronger. Something in here is definitely linked to it."\n
         Linda backs in, her sniper rifle trained outward until the last second. "Smoke's working. Banshees are firing blind."\n
