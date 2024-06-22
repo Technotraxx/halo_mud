@@ -68,7 +68,7 @@ def main():
     # Main content
     st.markdown('<h1 class="title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([3, 2])
     with col1:
         st.markdown('<h2 class="subtitle">Battlefield Status</h2>', unsafe_allow_html=True)
         st.markdown("""
