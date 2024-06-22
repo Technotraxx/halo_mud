@@ -8,6 +8,12 @@ st.set_page_config(layout="wide", page_title="Reach Surface - Entering ONI Facil
 # Custom CSS
 st.markdown("""
 <style>
+    .main-content {
+        background-color: #1E1E1E;
+        color: #FFFFFF;
+        padding: 20px;
+        border-radius: 5px;
+    }
     .main-title {
         font-size: 2.5em;
         font-weight: bold;
@@ -24,6 +30,7 @@ st.markdown("""
     }
     .info-box {
         background-color: #34495e;
+        color: #FFFFFF;
         padding: 10px;
         border-radius: 5px;
         margin-top: 10px;
@@ -126,6 +133,7 @@ def main():
         sidebar_content()
 
     # Main content
+    st.markdown('<div class="main-content">', unsafe_allow_html=True)
     col1, col2 = st.columns([1, 3])
 
     with col1:
@@ -133,6 +141,8 @@ def main():
 
     with col2:
         st.plotly_chart(create_battlefield_view(), use_container_width=True)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
