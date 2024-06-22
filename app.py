@@ -57,8 +57,43 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def create_battlefield_view():
-    # Your existing battlefield view code here
-    # ...
+    fig = go.Figure()
+
+    # Background
+    fig.add_shape(type="rect", x0=0, y0=0, x1=100, y1=100, fillcolor="#4A3C31", line_color="#4A3C31")
+
+    # ONI outpost
+    fig.add_shape(type="rect", x0=60, y0=60, x1=100, y1=100, fillcolor="#1E90FF", line_color="black")
+    fig.add_annotation(x=80, y=80, text="ONI Outpost", showarrow=False, font=dict(color="white", size=12))
+
+    # Open hatch
+    fig.add_shape(type="rect", x0=95, y0=95, x1=100, y1=100, fillcolor="black", line_color="#00FF00")
+    fig.add_annotation(x=94, y=97, text="Hatch", showarrow=False, font=dict(color="white", size=10), xanchor="right")
+
+    # Team entering facility
+    fig.add_trace(go.Scatter(x=[97, 97, 97, 96], y=[93, 93, 93, 93], mode="markers",
+                             marker=dict(size=10, color=["blue", "yellow", "green", "red"], opacity=0.7)))
+
+    # Banshees
+    t = np.linspace(0, 1, 100)
+    x = 10 + 50 * t
+    y = 20 + 30 * np.sin(2 * np.pi * t)
+    fig.add_trace(go.Scatter(x=x, y=y, mode="lines", line=dict(color="#FF00FF", width=2)))
+    fig.add_annotation(x=35, y=10, text="Banshees", showarrow=False, font=dict(color="#FF00FF", size=12))
+
+    # Smoke effect
+    fig.add_trace(go.Scatter(x=[95], y=[93], mode="markers", marker=dict(size=20, color="rgba(169,169,169,0.7)")))
+
+    fig.update_layout(
+        showlegend=False,
+        margin=dict(l=0, r=0, t=0, b=0),
+        xaxis=dict(showgrid=False, zeroline=False, visible=False),
+        yaxis=dict(showgrid=False, zeroline=False, visible=False),
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)'
+    )
+
+    return fig
 
 def battlefield_status():
     st.markdown('<p class="section-title">Battlefield Status</p>', unsafe_allow_html=True)
