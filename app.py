@@ -3,46 +3,34 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 
+# Set page config and theme
 st.set_page_config(layout="wide", page_title="Reach Surface - Entering ONI Facility")
+st.set_option('theme.backgroundColor', '#1E1E1E')
+st.set_option('theme.secondaryBackgroundColor', '#2C3E50')
+st.set_option('theme.textColor', '#FFFFFF')
 
-# Updated Custom CSS
+# Custom CSS (simplified)
 st.markdown("""
 <style>
-    .stApp {
-        background-color: #1E1E1E;
-        color: #FFFFFF;
-    }
     .main-title {
         font-size: 2.5em;
         font-weight: bold;
-        color: #4CAF50;
+        color: #4CAF50 !important;
         margin-bottom: 20px;
         text-align: center;
     }
     .section-title {
         font-size: 1.5em;
         font-weight: bold;
-        color: #3498db;
+        color: #3498db !important;
         margin-top: 15px;
         margin-bottom: 10px;
     }
     .info-box {
-        background-color: #2C3E50;
+        background-color: #34495e;
         padding: 10px;
         border-radius: 5px;
         margin-top: 10px;
-    }
-    .status-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-    .status-icon {
-        font-size: 24px;
-        margin-right: 10px;
-    }
-    .progress-label {
-        margin-bottom: 0;
     }
     .inventory-item {
         display: flex;
@@ -52,16 +40,6 @@ st.markdown("""
     .inventory-icon {
         font-size: 20px;
         margin-right: 10px;
-    }
-    /* New styles for sidebar */
-    .css-1d391kg {  /* Sidebar background */
-        background-color: #1E1E1E;
-    }
-    .css-1d391kg .stMarkdown {  /* Text in sidebar */
-        color: #000000;
-    }
-    .stProgress > div > div > div > div {
-        background-color: #4CAF50;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -114,19 +92,18 @@ def battlefield_status():
         ("🛡️", "Team Status: Transitioning to Interior, Exposed Momentarily"),
     ]
     for icon, text in status:
-        st.markdown(f'<div class="status-item"><span class="status-icon">{icon}</span>{text}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="display: flex; align-items: center; margin-bottom: 5px;"><span style="font-size: 24px; margin-right: 10px;">{icon}</span>{text}</div>', unsafe_allow_html=True)
 
-# Update the sidebar content to use custom classes
 def sidebar_content():
     st.markdown('<p class="section-title">Current Mission</p>', unsafe_allow_html=True)
     st.markdown('<div class="info-box">Enter ONI facility. Secure interior position. Assess internal situation and potential threats.</div>', unsafe_allow_html=True)
     
     st.markdown('<p class="section-title">Spartan Status</p>', unsafe_allow_html=True)
-    st.markdown('<p class="progress-label">❤️ Health: 95</p>', unsafe_allow_html=True)
+    st.markdown('❤️ Health: 95', unsafe_allow_html=True)
     st.progress(95)
-    st.markdown('<p class="progress-label">🛡️ Shield: 75 (Recharging)</p>', unsafe_allow_html=True)
+    st.markdown('🛡️ Shield: 75 (Recharging)', unsafe_allow_html=True)
     st.progress(75)
-    st.markdown('<p class="progress-label">🎯 Ammo: 45 / 12</p>', unsafe_allow_html=True)
+    st.markdown('🎯 Ammo: 45 / 12', unsafe_allow_html=True)
     
     st.markdown('<p class="section-title">Inventory</p>', unsafe_allow_html=True)
     inventory_items = [
@@ -142,7 +119,6 @@ def sidebar_content():
     for icon, name in inventory_items:
         st.markdown(f'<div class="inventory-item"><span class="inventory-icon">{icon}</span>{name}</div>', unsafe_allow_html=True)
 
-# In your main function
 def main():
     st.markdown('<h1 class="main-title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
 
