@@ -1,14 +1,7 @@
 import streamlit as st
-from dash import Dash, html, dcc
-import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output
-import plotly.graph_objects as go
 import base64
 
-# Initialize the Dash app
-app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
-
-# Define the Battlefield View SVG
+# Define the SVG content
 battlefield_svg = '''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="auto">
     <defs>
@@ -53,34 +46,43 @@ battlefield_svg = '''
 </svg>
 '''
 
-# Encode the SVG content
-encoded_svg = base64.b64encode(battlefield_svg.encode('utf-8')).decode('utf-8')
-
-# Define the Dash layout
-app.layout = html.Div([
-    html.H1("Reach Surface - Entering ONI Facility", style={'textAlign': 'center', 'color': '#4CAF50'}),
-    html.Div([
-        html.Div([
-            html.H2("Battlefield Status", style={'color': '#3498db'}),
-            html.Ul([
-                html.Li("🔓 Facility Access: Hatch Open, Team Entering"),
-                html.Li("💨 Smoke Screen: Deployed, Obscuring Entry"),
-                html.Li("✈️ Air Threat: Banshees Engaged, Visibility Reduced"),
-                html.Li("🛡️ Team Status: Transitioning to Interior, Exposed Momentarily")
-            ])
-        ], style={'width': '30%', 'float': 'left'}),
-        html.Div([
-            html.H2("Battlefield View", style={'color': '#3498db'}),
-            html.Iframe(srcDoc=f'data:image/svg+xml;base64,{encoded_svg}',
-                        style={'width': '100%', 'height': '400px', 'border': 'none'})
-        ], style={'width': '70%', 'float': 'right'})
-    ], style={'display': 'flex'})
-], style={'backgroundColor': '#1E1E1E', 'color': '#FFFFFF', 'padding': '20px'})
+# Function to render the SVG
+def render_svg(svg):
+    b64 = base64.b64encode(svg.encode('utf-8')).decode("utf-8")
+    html = f'<img src="data:image/svg+xml;base64,{b64}" style="max-width: 100%; height: auto;"/>'
+    return html
 
 # Streamlit app
 def main():
     st.set_page_config(layout="wide", page_title="Reach Surface - Entering ONI Facility")
-    
+
+    # Custom CSS
+    st.markdown("""
+    <style>
+    .main-content { background-color: #1E1E1E; color: #FFFFFF; padding: 20px; border-radius: 5px; }
+    .title { color: #4CAF50; text-align: center; }
+    .subtitle { color: #3498db; }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<h1 class="title">Reach Surface - Entering ONI Facility</h1>', unsafe_allow_html=True)
+
+    # Main content
+    col1, col2 = st.columns([1, 3])
+
+    with col1:
+        st.markdown('<h2 class="subtitle">Battlefield Status</h2>', unsafe_allow_html=True)
+        st.markdown("""
+        - 🔓 Facility Access: Hatch Open, Team Entering
+        - 💨 Smoke Screen: Deployed, Obscuring Entry
+        - ✈️ Air Threat: Banshees Engaged, Visibility Reduced
+        - 🛡️ Team Status: Transitioning to Interior, Exposed Momentarily
+        """)
+
+    with col2:
+        st.markdown('<h2 class="subtitle">Battlefield View</h2>', unsafe_allow_html=True)
+        st.markdown(render_svg(battlefield_svg), unsafe_allow_html=True)
+
     # Sidebar content
     with st.sidebar:
         st.header("Current Mission")
@@ -96,9 +98,6 @@ def main():
                      "🔫 M6D Pistol", "📡 ODST Drop Pod Beacon", "💾 Recovered Datapad", "🔮 Forerunner Artifact"]
         for item in inventory:
             st.write(item)
-
-    # Main content (Dash app)
-    st.components.v1.html(app.index(), height=600)
 
 if __name__ == "__main__":
     main()
