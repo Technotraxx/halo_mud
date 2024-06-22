@@ -49,7 +49,7 @@ battlefield_svg = '''
 # Function to render the SVG
 def render_svg(svg):
     b64 = base64.b64encode(svg.encode('utf-8')).decode("utf-8")
-    html = f'<img src="data:image/svg+xml;base64,{b64}" style="max-width: 100%; height: auto;"/>'
+    html = f'<img src="data:image/svg+xml;base64,{b64}" style="max-width: 70%; height: 50%;"/>'
     return html
 
 # Streamlit app
